@@ -1,9 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
+import './reset.css';
+import './style.css';
+
+import SearchBar from './components/SearchBar';
+import Results from './components/Results';
 
 function App() {
+  const [pullRequestUrl, setPullRequestUrl] = useState('');
+
   return (
-    <div className="App">
-      <h1>Ready for development!</h1>
+    <div className="app">
+      <article className="app-instructions">
+        <h1>Webdriver.io Snapshot Viewer</h1>
+        <p>
+          Use this tool to see WDIO snapshots side-by-side. Compare the incoming changes from a pull request to what was
+          committed to master
+        </p>
+        <div className="search-bar-container">
+          <SearchBar
+            onSubmit={(url) => {
+              setPullRequestUrl(url);
+            }}
+          />
+        </div>
+      </article>
+
+      <div className="results-container">{pullRequestUrl && <Results url={pullRequestUrl} />}</div>
     </div>
   );
 }
